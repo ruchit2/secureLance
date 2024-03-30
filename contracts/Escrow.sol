@@ -88,7 +88,7 @@ contract Escrow {
     }
 
     function processRefund() internal{
-        (bool sent,) = payable(client).call{ value: address(this).balance }("");
+        (bool sent,) = client.call{ value: address(this).balance }("");
         require(sent, "Failed to send ether");
         state = State.Cancelled;
         emit Cancelled();

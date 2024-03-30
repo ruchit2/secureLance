@@ -1,4 +1,5 @@
-import deploy from "./deploy";
+import { deploy } from "./ethereumAPI/api";
+import serverAPI from "./serverAPI/api";
 
 function CreateContract({ signer }) {
   async function newContract() {
@@ -16,7 +17,7 @@ function CreateContract({ signer }) {
       ether_amount,
       terms
     );
-    console.log(escrowContract);
+    await serverAPI.addNewContractAddress(escrowContract.target);
   }
 
   return (
@@ -24,32 +25,48 @@ function CreateContract({ signer }) {
       <h2> New Contract </h2>
       <label>
         Freelancer Address
-        <input type="text" id="freelancer" />
+        <input
+          value={"0x70997970C51812dc3A010C7d01b50e0d17dc79C8"}
+          type="text"
+          id="freelancer"
+        />
       </label>
 
       <label>
         Deposit Amount (in Eth)
-        <input type="text" id="ether_amount" />
+        <input value={100} type="text" id="ether_amount" />
       </label>
 
       <label>
         Project terms & conditions
-        <textarea id="terms"></textarea>
+        <textarea value={"terms"} id="terms"></textarea>
       </label>
 
       <label>
         Arbiter 1 Address
-        <input type="text" id="arbiter1" />
+        <input
+          value={"0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"}
+          type="text"
+          id="arbiter1"
+        />
       </label>
 
       <label>
         Arbiter 2 Address
-        <input type="text" id="arbiter2" />
+        <input
+          value={"0x90F79bf6EB2c4f870365E785982E1f101E93b906"}
+          type="text"
+          id="arbiter2"
+        />
       </label>
 
       <label>
         Arbiter 3 Address
-        <input type="text" id="arbiter3" />
+        <input
+          value={"0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65"}
+          type="text"
+          id="arbiter3"
+        />
       </label>
 
       <div

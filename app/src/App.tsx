@@ -1,19 +1,16 @@
-import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import CreateContract from "./CreateContract";
+import ExistingContracts from "./ExistingContracts";
+import provider from "./ethereumAPI/provider";
 
-// 1. request wallet to connect, set first account as account
-
-const provider = new ethers.BrowserProvider(window.ethereum);
 function App() {
   const [isConnected, setIsConnected] = useState(false);
-  const [account, setAccount] = useState();
   const [signer, setSigner] = useState(null);
+  const [activeView, setActiveView] = useState("Create Contract");
 
   async function connectWallet() {
     if (window.ethereum) {
-      const accounts = await provider.send("eth_requestAccounts", []);
-      setAccount(accounts[0]);
+      await provider.send("eth_requestAccounts", []);
       setSigner(await provider.getSigner());
       setIsConnected(true);
     } else {
@@ -24,6 +21,15 @@ function App() {
   useEffect(() => {
     connectWallet();
   });
+
+  function renderContent() {
+    switch (activeView) {
+      case "Create Contract":
+        return <CreateContract signer={signer} />;
+      case "Existing Contract":
+        return <ExistingContracts signer={signer} />;
+    }
+  }
 
   return (
     <div>
@@ -43,7 +49,23 @@ function App() {
           </div>
         )}
       </div>
-      <CreateContract signer={signer} />
+      <div style={{ display: "flex" }}>
+        <div className="sidebar">
+          <button
+            className="button"
+            onClick={() => setActiveView("Create Contract")}
+          >
+            Create Contract
+          </button>
+          <button
+            className="button"
+            onClick={() => setActiveView("Existing Contract")}
+          >
+            Existing Contract
+          </button>
+        </div>
+        {renderContent()}
+      </div>
     </div>
   );
 }
