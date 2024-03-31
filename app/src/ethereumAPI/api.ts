@@ -23,7 +23,26 @@ export async function getContract(address, signer) {
   return new ethers.Contract(address, Escrow.abi, signer);
 }
 
-export async function payNow(escrowContract) {
-  const txn = escrowContract.clientApproval();
-  return txn;
+export function payNow(escrowContract) {
+  return async () => {
+    await escrowContract.clientApproval();
+  };
+}
+
+export function raiseDispute(escrowContract) {
+  return async () => {
+    await escrowContract.raiseDispute();
+  };
+}
+
+export function voteForClient(escrowContract) {
+  return async () => {
+    await escrowContract.vote(false);
+  };
+}
+
+export function voteForFreelancer(escrowContract) {
+  return async () => {
+    await escrowContract.vote(true);
+  };
 }

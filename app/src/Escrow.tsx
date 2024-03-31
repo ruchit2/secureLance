@@ -1,25 +1,22 @@
 import { useEffect, useState } from "react";
-import { getContract, payNow } from "./ethereumAPI/api";
+import getEscrow from "./utils/getEscrow";
+import eventListener from "./utils/eventListener";
 
 function Escrow({ signer, address }) {
   const [escrow, setEscrow] = useState(null);
-  const [escrowContract, setEscrowContract] = useState(null);
+
+  async function fetchEscrow() {
+    const escrowData = await getEscrow(address, signer);
+    setEscrow(escrowData);
+  }
 
   useEffect(() => {
-    async function fetchContract() {
-      const contract = await getContract(address, signer);
-      setEscrowContract(contract);
-      const escrowData = {
-        address: await contract.getAddress(),
-        client: await contract.client(),
-        freelancer: await contract.freelancer(),
-        amount: await contract.amount(),
-        terms: await contract.terms(),
-      };
-      setEscrow(escrowData);
-    }
-    fetchContract();
-  });
+    fetchEscrow();
+  }, [signer.address]);
+
+  useEffect(() => {
+    eventListener(address, signer, fetchEscrow);
+  }, [address, signer.address]);
 
   return (
     <div>
@@ -30,21 +27,53 @@ function Escrow({ signer, address }) {
           <div>Freelancer - {escrow.freelancer}</div>
           <div>Amount - {escrow.amount}</div>
           <div>Terms - {escrow.terms}</div>
-          {escrow.client == signer.address && (
-            <button
-              id="payBtn"
-              className="button"
+          <div>State - {escrow.state}</div>
+          {escrow.state == 0 && escrow.client == signer.address && (
+            <ActionButton
               onClick={async () => {
-                await payNow(escrowContract);
+                await escrow.handlePayNow();
               }}
-            >
-              Pay
-            </button>
+              text="Pay"
+            />
           )}
+          {escrow.state == 0 &&
+            (escrow.client == signer.address ||
+              escrow.freelancer == signer.address) && (
+              <ActionButton
+                onClick={async () => {
+                  await escrow.raiseDispute();
+                }}
+                text="Raise Dispute"
+              />
+            )}
+          {escrow.state == 1 && escrow.isArbiter && !escrow.hasVoted && (
+            <>
+              <ActionButton
+                onClick={async () => {
+                  await escrow.voteForClient();
+                }}
+                text="Vote For Client"
+              />
+              <ActionButton
+                onClick={async () => {
+                  await escrow.voteForFreelancer();
+                }}
+                text="Vote For Freelancer"
+              />
+            </>
+          )}
+          {escrow.state == 2 && <div>Cancelled</div>}
+          {escrow.state == 3 && <div>Completed</div>}
         </>
       )}
     </div>
   );
 }
+
+const ActionButton = ({ onClick, text }) => (
+  <button className="button" onClick={onClick}>
+    {text}
+  </button>
+);
 
 export default Escrow;

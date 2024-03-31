@@ -7,7 +7,7 @@ pragma solidity ^0.8.24;
 contract Escrow {
     address public client;
     address public freelancer;
-    mapping (address => bool) isArbiter;
+    mapping (address => bool) public isArbiter;
     uint noOfArbiters;
     uint public amount; 
     string public terms;
