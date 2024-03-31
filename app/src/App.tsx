@@ -33,7 +33,7 @@ function App() {
 
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div className="navbar">
         <h1>SecureLance</h1>
         {!isConnected && (
           <div
@@ -49,20 +49,20 @@ function App() {
           </div>
         )}
       </div>
-      <div style={{ display: "flex" }}>
+      <div id="container">
         <div className="sidebar">
-          <button
-            className="button"
+          <div
+            className="sidebar-option"
             onClick={() => setActiveView("Create Contract")}
           >
             Create Contract
-          </button>
-          <button
-            className="button"
+          </div>
+          <div
+            className="sidebar-option"
             onClick={() => setActiveView("Existing Contract")}
           >
             Existing Contract
-          </button>
+          </div>
         </div>
         {renderContent()}
       </div>

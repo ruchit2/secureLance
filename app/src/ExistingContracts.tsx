@@ -17,9 +17,8 @@ function ExistingContracts({ signer }) {
 
   return (
     <div className="existing-contracts">
-      <h1> Existing Contracts </h1>
-
-      <div id="container">
+      <h2> Existing Contracts </h2>
+      <div className="list-container">
         {contractAddresses.map((address, index) => (
           <Escrow key={index} address={address} signer={signer} />
         ))}
