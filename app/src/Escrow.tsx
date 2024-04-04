@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import getEscrow from "./utils/getEscrow";
 import eventListener from "./utils/eventListener";
+import ActionButton from "./ActionButton";
 
 function Escrow({ signer, address }) {
   const [escrow, setEscrow] = useState(null);
@@ -30,35 +31,24 @@ function Escrow({ signer, address }) {
           <h3>State - {escrow.state}</h3>
           <div className="buttons-container">
             {escrow.state == 0 && escrow.client == signer.address && (
-              <ActionButton
-                onClick={async () => {
-                  await escrow.handlePayNow();
-                }}
-                text="Pay"
-              />
+              <ActionButton handleClick={escrow.handlePayNow} text="Pay" />
             )}
             {escrow.state == 0 &&
               (escrow.client == signer.address ||
                 escrow.freelancer == signer.address) && (
                 <ActionButton
-                  onClick={async () => {
-                    await escrow.raiseDispute();
-                  }}
+                  handleClick={escrow.raiseDispute}
                   text="Raise Dispute"
                 />
               )}
             {escrow.state == 1 && escrow.isArbiter && !escrow.hasVoted && (
               <>
                 <ActionButton
-                  onClick={async () => {
-                    await escrow.voteForClient();
-                  }}
+                  handleClick={escrow.voteForClient}
                   text="Vote For Client"
                 />
                 <ActionButton
-                  onClick={async () => {
-                    await escrow.voteForFreelancer();
-                  }}
+                  handleClick={escrow.voteForFreelancer}
                   text="Vote For Freelancer"
                 />
               </>
@@ -71,11 +61,5 @@ function Escrow({ signer, address }) {
     </>
   );
 }
-
-const ActionButton = ({ onClick, text }) => (
-  <div className="button" onClick={onClick}>
-    {text}
-  </div>
-);
 
 export default Escrow;

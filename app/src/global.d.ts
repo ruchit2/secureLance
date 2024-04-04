@@ -4,4 +4,5 @@ interface Window {
 
 interface HTMLElement {
   value?: any;
+  disabled?: any;
 }

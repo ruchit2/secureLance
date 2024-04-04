@@ -37,7 +37,7 @@ function App() {
         <h1>SecureLance</h1>
         {!isConnected && (
           <div
-            className="button"
+            className="button connect-btn"
             onClick={(e) => {
               e.preventDefault();
               if (!isConnected) {

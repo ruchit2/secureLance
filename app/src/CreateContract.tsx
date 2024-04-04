@@ -1,3 +1,4 @@
+import ActionButton from "./ActionButton";
 import { deploy } from "./ethereumAPI/api";
 import serverAPI from "./serverAPI/api";
 
@@ -69,15 +70,7 @@ function CreateContract({ signer }) {
         />
       </label>
 
-      <div
-        className="button"
-        onClick={(e) => {
-          e.preventDefault();
-          newContract();
-        }}
-      >
-        Deploy
-      </div>
+      <ActionButton handleClick={newContract} text="Deploy" />
     </div>
   );
 }
