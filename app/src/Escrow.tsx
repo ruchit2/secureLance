@@ -11,6 +11,19 @@ function Escrow({ signer, address }) {
     setEscrow(escrowData);
   }
 
+  function getStateTag(state) {
+    switch (state) {
+      case 0:
+        return <span className="stateTag initiated">Initiated</span>;
+      case 1:
+        return <span className="stateTag indispute">In Dispute</span>;
+      case 2:
+        return <span className="stateTag cancelled">Cancelled</span>;
+      case 3:
+        return <span className="stateTag completed">Completed</span>;
+    }
+  }
+
   useEffect(() => {
     fetchEscrow();
   }, [signer.address]);
@@ -26,9 +39,9 @@ function Escrow({ signer, address }) {
           <h3>Address - {escrow.address}</h3>
           <h3>Client - {escrow.client}</h3>
           <h3>Freelancer - {escrow.freelancer}</h3>
-          <h3>Amount - {escrow.amount}</h3>
-          <h3>Terms - {escrow.terms}</h3>
-          <h3>State - {escrow.state}</h3>
+          <h3>Amount - {escrow.amount} ETH</h3>
+          <h3>Terms & Conditions - {escrow.terms}</h3>
+          <h3>State - {getStateTag(escrow.state)}</h3>
           <div className="buttons-container">
             {escrow.state == 0 && escrow.client == signer.address && (
               <ActionButton handleClick={escrow.handlePayNow} text="Pay" />
@@ -54,8 +67,6 @@ function Escrow({ signer, address }) {
               </>
             )}
           </div>
-          {escrow.state == 2 && <div>Cancelled</div>}
-          {escrow.state == 3 && <div>Completed</div>}
         </div>
       )}
     </>

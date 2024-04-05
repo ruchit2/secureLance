@@ -14,7 +14,7 @@ export async function deploy(signer, freelancer, arbiters, amount, terms) {
     ethers.parseEther(amount),
     terms,
     {
-      value: ethers.parseEther(`${parseInt(amount) + 10}`),
+      value: ethers.parseEther(amount),
     }
   );
 }

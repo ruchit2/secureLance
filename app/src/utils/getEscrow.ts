@@ -1,3 +1,4 @@
+import { ethers } from "ethers";
 import {
   getContract,
   payNow,
@@ -13,7 +14,7 @@ export default async function getEscrow(address, signer) {
     address,
     client: await escrowContract.client(),
     freelancer: await escrowContract.freelancer(),
-    amount: await escrowContract.amount(),
+    amount: ethers.formatEther(await escrowContract.amount()),
     terms: await escrowContract.terms(),
     state: parseInt(await escrowContract.state()),
     isArbiter: await escrowContract.isArbiter(signer.address),

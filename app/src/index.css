@@ -124,3 +124,29 @@ textarea {
 .buttons-container {
   display: flex;
 }
+
+.stateTag {
+  background-color: #eee;
+  padding: 4px 10px;
+  border-radius: 16px;
+}
+
+.initiated {
+  background-color: #e1f3ff;
+  color: #005da0;
+}
+
+.indispute {
+  background-color: #dfe5e8;
+  color: #595c60;
+}
+
+.cancelled {
+  background-color: #ffe1e1;
+  color: #a00000;
+}
+
+.completed {
+  background-color: #e1ffe7;
+  color: #00a020;
+}
