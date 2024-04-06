@@ -1,12 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 body {
   background-color: #f5f5f5;
-  font-family: "Muli", sans-serif;
+  font-family: "Poppins", sans-serif;
   margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .navbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: #fff;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   z-index: 1;
@@ -16,6 +24,40 @@ body {
 .connect-btn {
   display: flex;
   align-items: center;
+}
+
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  margin: 220px auto 50px;
+  font-size: 54px;
+}
+
+.features {
+  margin-top: 80px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.features h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.features ul {
+  list-style: inside;
+  padding: 0;
+  margin-left: 20px;
+}
+
+.features li {
+  margin-bottom: 10px;
 }
 
 h1,
@@ -32,6 +74,8 @@ h2 {
 
 .sidebar {
   background-color: #fefefe;
+  display: flex;
+  flex-direction: column;
   width: 20%;
   padding-top: 25px;
   padding: 10px;
@@ -49,11 +93,12 @@ h2 {
   text-align: center;
   font-size: large;
   font-weight: 500;
+  border: 1px solid lightblue;
 }
 
 .sidebar-option:hover {
   color: #fff;
-  background-color: #5fbdff;
+  background-color: #0b57d0;
 }
 
 .sidebar-option:active {
@@ -84,22 +129,21 @@ textarea {
 }
 
 .button {
-  background-color: #71c0f9;
+  background-color: #0b57d0;
   color: white;
   text-align: center;
   font-weight: 600;
-  text-transform: uppercase;
+  text-transform: capitalize;
   margin: 10px;
-  padding: 14px;
-  font-size: 18px;
-  letter-spacing: 1px;
+  padding: 14px 20px;
+  font-size: 14px;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 50px;
   width: fit-content;
 }
 
 .button:hover {
-  background-color: #47adf7;
+  background-color: #05398d;
 }
 
 .button:active {
@@ -149,4 +193,19 @@ textarea {
 .completed {
   background-color: #e1ffe7;
   color: #00a020;
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  margin: 25px auto;
+  width: 120px;
+  height: 20px;
+  -webkit-mask: linear-gradient(90deg, #000 70%, #0000 0) left/20% 100%;
+  background: linear-gradient(#000 0 0) left -25% top 0 /20% 100% no-repeat #ddd;
+  animation: l7 1s infinite steps(6);
+}
+@keyframes l7 {
+  100% {
+    background-position: right -25% top 0;
+  }
 }

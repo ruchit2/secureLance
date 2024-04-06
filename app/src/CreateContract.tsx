@@ -1,4 +1,5 @@
 import ActionButton from "./ActionButton";
+import Sidebar from "./Sidebar";
 import { deploy } from "./ethereumAPI/api";
 import serverAPI from "./serverAPI/api";
 
@@ -22,39 +23,42 @@ function CreateContract({ signer }) {
   }
 
   return (
-    <div className="contract">
-      <h2> New Contract </h2>
-      <label>
-        Freelancer Address
-        <input type="text" id="freelancer" />
-      </label>
+    <div id="container">
+      <Sidebar />
+      <div className="contract">
+        <h2> New Contract </h2>
+        <label>
+          Freelancer Address
+          <input type="text" id="freelancer" />
+        </label>
 
-      <label>
-        Deposit Amount (in Eth)
-        <input type="text" id="ether_amount" />
-      </label>
+        <label>
+          Deposit Amount (in Eth)
+          <input type="text" id="ether_amount" />
+        </label>
 
-      <label>
-        Project terms & conditions
-        <textarea id="terms"></textarea>
-      </label>
+        <label>
+          Project terms & conditions
+          <textarea id="terms"></textarea>
+        </label>
 
-      <label>
-        Arbiter 1 Address
-        <input type="text" id="arbiter1" />
-      </label>
+        <label>
+          Arbiter 1 Address
+          <input type="text" id="arbiter1" />
+        </label>
 
-      <label>
-        Arbiter 2 Address
-        <input type="text" id="arbiter2" />
-      </label>
+        <label>
+          Arbiter 2 Address
+          <input type="text" id="arbiter2" />
+        </label>
 
-      <label>
-        Arbiter 3 Address
-        <input type="text" id="arbiter3" />
-      </label>
+        <label>
+          Arbiter 3 Address
+          <input type="text" id="arbiter3" />
+        </label>
 
-      <ActionButton handleClick={newContract} text="Deploy" />
+        <ActionButton handleClick={newContract} text="Deploy" />
+      </div>
     </div>
   );
 }
